@@ -20,3 +20,7 @@ else
   # optional restart hook or alert integration could be inserted here
   exit 1
 fi
+
+Make executable:
+
+chmod +x scripts/app_health_check.sh
