@@ -1,0 +1,39 @@
+apiVersion: crd.kubearmor.com/v1
+kind: KubeArmorPolicy
+metadata:
+  name: wisecow-zerotrust
+  namespace: wisecow
+spec:
+  severity: 1
+  selector:
+    matchLabels:
+      app: wisecow
+  file:
+    matchPaths:
+      - path: /bin/
+        matchPermissions:
+          - perm: "rx"
+          - action: Block
+      - path: /usr/bin/
+        matchPermissions:
+          - perm: "rx"
+          - action: Block
+  process:
+    matchPaths:
+      - path: /bin/*
+        action: Block
+      - path: /usr/sbin/*
+        action: Block
+  network:
+    policy:
+      - protocol: tcp
+        direction: Egress
+        action: "Allow"
+        port:
+          - 80
+          - 443
+      - protocol: tcp
+        direction: Egress
+        action: "Block"
+  capabilities:
+    - drop: ["SYS_PTRACE", "SYS_MODULE", "SYS_ADMIN"]
