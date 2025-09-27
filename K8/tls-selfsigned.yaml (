@@ -1,0 +1,7 @@
+# generate cert (local)
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+  -keyout wisecow.key -out wisecow.crt \
+  -subj "/CN=wisecow.example.com/O=wisecow"
+
+# create secret (kubectl)
+kubectl create secret tls wisecow-tls --key=wisecow.key --cert=wisecow.crt -n wisecow
