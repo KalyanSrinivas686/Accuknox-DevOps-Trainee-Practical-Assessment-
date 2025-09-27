@@ -47,3 +47,8 @@ fi
 # Top 5 CPU processes
 log "Top 5 CPU processes:"
 ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%cpu | head -n 6 | sed '1d' | tee -a "$LOGFILE"
+
+
+Make executable:
+
+chmod +x scripts/system_health_monitor.sh
