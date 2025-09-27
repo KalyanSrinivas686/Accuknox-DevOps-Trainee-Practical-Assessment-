@@ -37,3 +37,17 @@ spec:
         action: "Block"
   capabilities:
     - drop: ["SYS_PTRACE", "SYS_MODULE", "SYS_ADMIN"]
+
+    Apply the policy:
+
+kubectl apply -f kubearmor/zerotrust-policy.yaml
+
+
+Intentionally cause a violation (e.g., exec /bin/bash in container):
+
+kubectl exec -n wisecow -it deploy/wisecow-app -- /bin/bash -c "ls /bin"
+
+
+Check KubeArmor logs for alerts (depends on installation; check kubearmor pods logs):
+
+kubectl logs -n kube-system -l app=kubearmor -c kubearmor | tail -n 200
